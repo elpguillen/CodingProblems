@@ -1,7 +1,8 @@
 class Solution {
-    static int N;
-    static int boxSize;
-    static boolean[][] rowUsed, colUsed, boxUsed;
+    static int N;                                   // size of the board
+    static int boxSize;                             // size of each sub-box
+    static boolean[][] rowUsed, colUsed;
+    static boolean[][] boxUsed;
 
     public static void solveSudoku(char[][] board) {
         N = board.length;
@@ -11,7 +12,7 @@ class Solution {
         colUsed = new boolean[N][N + 1];
         boxUsed = new boolean[N][N + 1];
 
-        // Initialize state
+        // Initialize state: mark which numbers are already placed
         for (int r = 0; r < N; r++) {
             for (int c = 0; c < N; c++) {
                 if (board[r][c] != '.') {
@@ -23,7 +24,7 @@ class Solution {
             }
         }
 
-        backtrack(board, 0, 0);
+        backtrack(board, 0, 0);     // start solving from (0,0)
     }
 
     private static boolean backtrack(char[][] board, int row, int col) {
@@ -36,6 +37,7 @@ class Solution {
             return backtrack(board, row, col + 1);
         }
 
+        // Try placing numbers 1...N
         for (int num = 1; num <= N; num++) {
             int boxIndex = getBoxIndex(row, col);
             if (!rowUsed[row][num] && !colUsed[col][num] && !boxUsed[boxIndex][num]) {
@@ -54,6 +56,7 @@ class Solution {
         return false; // trigger backtracking
     }
 
+    // Converts a (row, col) into the box index
     private static int getBoxIndex(int row, int col) {
         return (row / boxSize) * boxSize + (col / boxSize);
     }

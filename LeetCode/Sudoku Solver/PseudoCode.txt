@@ -1,0 +1,7 @@
+1. Passes in partially filled Sudoku board
+2. Call backtrack function:
+    a. If cell filled, skip
+    b. if cell not filled, try all numbers between 1 and N (where N is length/width/size of the board)
+    c. if number is valid recurse deeper into the grid
+    d. if reach a dead-end, undo and continue backtrack with value yet tried
+3. For any valid Sudoku puzzle backtracking will eventually fill all cells correctly.
